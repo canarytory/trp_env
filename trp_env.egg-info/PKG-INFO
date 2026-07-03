@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: trp_env
+Version: 8.0.1
+Requires-Dist: gymnasium==0.27.1
+Requires-Dist: mujoco>=2.3.1.post1
+Requires-Dist: torch
+Requires-Dist: scipy
+Dynamic: requires-dist

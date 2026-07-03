@@ -255,10 +255,13 @@ class TwoResourceEnv(MujocoEnv, utils.EzPickle):
                 pos="%d 0 1" % walldist,
                 size="0.5 %d.5 2" % walldist))
         
-        with tempfile.NamedTemporaryFile(mode='wt', suffix=".xml") as tmpfile:
-            file_path = tmpfile.name
+        # NOTE: NamedTemporaryFile cannot be reopened by name while still open on
+        # Windows, so use mkstemp (close the handle) and clean up manually.
+        fd, file_path = tempfile.mkstemp(suffix=".xml")
+        os.close(fd)
+        try:
             tree.write(file_path)
-            
+
             # build mujoco
             self.wrapped_env = model_cls(
                 file_path,
@@ -267,6 +270,11 @@ class TwoResourceEnv(MujocoEnv, utils.EzPickle):
                 height=height,
                 **kwargs
             )
+        finally:
+            try:
+                os.remove(file_path)
+            except OSError:
+                pass
         
         # optimization, caching obs spaces
         ub = BIG * np.ones(self.get_current_obs().shape, dtype=np.float32)

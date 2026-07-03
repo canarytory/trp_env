@@ -6,3 +6,4 @@ from trp_env.envs.humanoid_trp_env import HumanoidTwoResourceEnv, HumanoidSmallT
 from trp_env.envs.realant_trp_env import RealAntTwoResourceEnv, RealAntSmallTwoResourceEnv
 from trp_env.envs.wheel_trp_env import WheelTwoResourceEnv, WheelSmallTwoResourceEnv
 from trp_env.envs.ball_trp_env import BallTwoResourceEnv, BallSmallTwoResourceEnv
+from trp_env.envs.two_agent_trp_env import TwoAgentLowGearAntTRPEnv
